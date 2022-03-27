@@ -217,6 +217,7 @@ while (~isempty(shiftStructStack))
             continue
         end
         
+        
         %         freeWeekendArray = zeros(nDoctor,1);
         %         for i=1:length(longWeekendCellArray)
         %             weekendShiftArray = sum(ismember(mTmpShift.*shiftStructNode1.doctorMatrix,longWeekendCellArray{i}),2);
