@@ -6,58 +6,55 @@
 % load('mShiftConstraint.mat')
 mShiftConstraint = ...
 [%1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31
--1	-1	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
-0	0	0	0	0	0	0	0	0	0	0	2	-1	-1	-1	-1	-1	0	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
--1	-1	-1	-1	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	0	0	-1	-1	-1	-1	-1	-1	-1	0	-1	-1	-1	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	0	2	2	0	0	0	0
-2	2	0	-1	2	-1	0	-1	-1	-1	-1	0	-1	-1	-1	-1	2	-1	0	-1	0	2	-1	-1	-1	-1	-1	2	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	2	-1	-1	-1	0	0	-1	-1	-1	0	2	0	0	-1	2	-1	-1	-1	-1	0	-1	0	-1
-0	0	0	0	0	0	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	2	0	0	0	0	0	0	0	0	0	0	0	0	2	0	-1	-1	-1	-1	-1	-1	-1	-1	0	0
--1	0	0	0	0	0	0	-1	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	-1	-1	-1	-1	0	0	0	-1	-1	-1	-1	0	0	0	-1	-1	-1	2	0	0	0	-1	0	0	0	0	0	0	-1	0	0	0	0	0
--1	-1	2	0	0	0	0	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	0	0	0	0	-1	-1	-1	0	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	2	0	-1	0	0	0	0
--1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	-1	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	0	2	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0	0	2	0	0	0
+0	0	0	2	0	0	0	2	0	0	0	0	0	0	0	2	0	2	0	0	0	0	0	0	0	0	0	0	0	0	2
+-1	-1	0	0	-1	0	-1	0	0	0	0	-1	0	-1	0	0	0	0	-1	0	-1	-1	-1	2	0	0	0	0	0	2	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1
+0	-1	-1	0	0	0	0	0	-1	0	2	0	0	0	0	-1	0	0	-1	-1	0	2	-1	0	0	2	-1	-1	-1	-1	-1
+0	-1	-1	-1	-1	-1	0	0	-1	-1	-1	-1	-1	-1	-1	-1	2	0	-1	-1	0	0	0	0	0	0	2	0	2	0	0
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0	0	0	0	0	0	0	0
 ]
 
 mBoundaryConstraint = int16([ ...
 %     ügyeleti napok	hétf?-péntek (MIN)	hétf?-péntek (MAX)	hétvégi napok (MIN)	hétvégi napok (MAX)
-11	3	3	3	4
-11	2	3	3	3
-4	1	2	1	1
-10	2	4	3	4
-10	2	3	3	4
-8	2	3	1	4
-2	0	2	0	2
-6	1	2	1	2
+5	1	2	1	2
+5	1	1	1	3
+5	1	2	1	2
+5	1	2	1	2
+5	1	2	1	2
+5	0	0	1	2
+1	0	1	0	1
 ])
 
-nMinFreeLongWeekend = 4;
+nMinFreeLongWeekend = 2;
 
  doctorNameArray={
             'Égetö'
             'Gergely'
-            'Kiss'
             'Klimaj'
             'Madarász'
             'Mózer'
-            'Trencséni'
-            'Mózes'
+            'Zabihi'
+            'Jósvai'
             }
        
 % doctorNameArray={
 %             'Csókay'
 %             'Jósvai'
-%             'Kiss'
 %             'Lipóth'
 %             'Mucsi'
 %             'Mózes'
 %             'Trencséni'
 %             }
 
-saturdayArray = int16([2:7:62]);
-sundayArray = int16([3:7:62]);
+saturdayArray = int16([3:7:31]);
+sundayArray = int16([4:7:31]);
 
-longWeekendCellArray = {[1:1:4]    [8:1:11]   [15:1:18]   [22:1:25] [29:1:32] [36:1:39] [43:1:46] [50:1:53] [57:1:60]};
+% longWeekendCellArray = {[1:1:3]    [7:1:10]   [14:1:17]   [21:1:24]     [28:1:31]};
+longWeekendCellArray = {[2:1:5]    [9:1:12]   [16:1:19]   [23:1:26]    [30:1:31]};
 
-mondayArray = int16([4:7:62]);
-fidayArray = int16([1:7:62]);
+mondayArray = int16([5:7:31]);
+fidayArray = int16([2:7:31]);
 
 requiredShiftArrayCond = mBoundaryConstraint (:,1);
 requiredMonFriCond = mBoundaryConstraint (:,2);
@@ -209,35 +206,35 @@ while (~isempty(shiftStructStack))
     %% checking constraints at the end of the tree
     if iDayPassed == nDay
         leafCounter = leafCounter + 1;
-%         passed = false;
-%         
-%         monFriShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[mondayArray fidayArray]),2);
-%         if prod(monFriShiftArray >= requiredMonFriCond)==1 % minimum shifts on monday or friDayPassed
-%             passed = true;
-%         else
-%             passed = false;
-%             continue
-%         end
-%         
-%         freeWeekendArray = zeros(nDoctor,1);
-%         for i=1:length(longWeekendCellArray)
-%             weekendShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,longWeekendCellArray{i}),2);
-%             freeWeekendArray=(weekendShiftArray==0)+freeWeekendArray;
-%         end
-%         if  prod(freeWeekendArray >= nMinFreeLongWeekend)==1
-%             passed = true;
-%         else
-%             passed = false;
-%             continue
-%         end
-%         
-%         engagedWeekendDayArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[saturdayArray sundayArray]),2);
-%         if prod(engagedWeekendDayArray >= requiredWeekendDayCond)==1;
-%             passed=true;
-%         else
-%             passed=false;
-%             continue
-%         end
+        passed = false;
+        
+        monFriShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[mondayArray fidayArray]),2);
+        if prod(monFriShiftArray >= requiredMonFriCond)==1 % minimum shifts on monday or friDayPassed
+            passed = true;
+        else
+            passed = false;
+            continue
+        end
+        
+        freeWeekendArray = zeros(nDoctor,1);
+        for i=1:length(longWeekendCellArray)
+            weekendShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,longWeekendCellArray{i}),2);
+            freeWeekendArray=(weekendShiftArray==0)+freeWeekendArray;
+        end
+        if  prod(freeWeekendArray >= nMinFreeLongWeekend)==1
+            passed = true;
+        else
+            passed = false;
+            continue
+        end
+        
+        engagedWeekendDayArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[saturdayArray sundayArray]),2);
+        if prod(engagedWeekendDayArray >= requiredWeekendDayCond)==1;
+            passed=true;
+        else
+            passed=false;
+            continue
+        end
         
         
         

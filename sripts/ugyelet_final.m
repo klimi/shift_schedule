@@ -7,27 +7,27 @@ load('mShiftConstraint.mat')
 saturdayArray = int16([2:7:30]);
 sundayArray = int16([3:7:30]);
 
-longWeekendCellArray = {[1    2    3    4]    [8   9    10   11]   [15  16   17   18]   [22   23   24   25]};
+longWeekendCellArray = {[3   4    5   6]    [10   11    12  13]   [17   18  19  20]   [24   25  26  27]};
 
-mondayArray = int16([1:7:30]);
-fidayArray = int16([4:7:30]);
+mondayArray = int16([6:7:30]);
+fidayArray = int16([3:7:30]);
 
 requiredShiftArray = int16([...
-4
-4
+5
+5
+3
 4
 5
 4
-4
-2
+1
 3
     ])
 
 requiredMonFri = int16([...
-2
-2
 1
 1
+1
+2
 1
 1
 0
@@ -35,11 +35,11 @@ requiredMonFri = int16([...
     ])
 
 maxMonFri = int16([...
+1
+1
+1
 2
 2
-1
-1
-1
 1
 1
 1
@@ -48,10 +48,10 @@ maxMonFri = int16([...
 requiredWeekendDay=int16([...
 1
 1
-2
+1
+1
 1
 2
-1
 0
 1
     ])
@@ -59,10 +59,10 @@ requiredWeekendDay=int16([...
 maxWeekendDay=int16([...
 1
 1
-2
+1
 1
 2
-1
+2
 1
 1
     ])
