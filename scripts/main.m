@@ -5,39 +5,36 @@
 
 % load('mShiftConstraint.mat')
 mShiftConstraint = ...
-[%1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31
-0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0	0	2	0	0	0
-0	0	0	2	0	0	0	2	0	0	0	0	0	0	0	2	0	2	0	0	0	0	0	0	0	0	0	0	0	0	2
--1	-1	0	0	-1	0	-1	0	0	0	0	-1	0	-1	0	0	0	0	-1	0	-1	-1	-1	2	0	0	0	0	0	2	0
-0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1
-0	-1	-1	0	0	0	0	0	-1	0	2	0	0	0	0	-1	0	0	-1	-1	0	2	-1	0	0	2	-1	-1	-1	-1	-1
-0	-1	-1	-1	-1	-1	0	0	-1	-1	-1	-1	-1	-1	-1	-1	2	0	-1	-1	0	0	0	0	0	0	2	0	2	0	0
-0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	2	0	0	0	0	0	0	0	0
+    [%1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31
+0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+-1	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	0	0	-1	0	0	0	0	0	0	0	0	0	0	0	0	0
+-1	0	2	0	0	-1	-1	-1	0	2	0	0	-1	-1	-1	0	0	0	0	-1	0	-1	0	0	2	0	-1	0	-1	0	0
+0	0	0	2	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	0	0	2	0	0	0	0	-1
+2	0	-1	-1	2	0	0	2	0	-1	0	2	0	0	0	0	-1	-1	0	0	0	0	0	-1	0	0	0	0	0	0	-1
+0	0	-1	0	0	-1	0	0	0	-1	2	0	-1	0	2	0	0	2	0	-1	1	-1	-1	-1	0	0	-1	-1	-1	-1	-1
 ]
 
 mBoundaryConstraint = int16([ ...
-%     ügyeleti napok	hétf?-péntek (MIN)	hétf?-péntek (MAX)	hétvégi napok (MIN)	hétvégi napok (MAX)
+    %     ügyeleti napok	hétf?-péntek (MIN)	hétf?-péntek (MAX)	hétvégi napok (MIN)	hétvégi napok (MAX)
+5	1	2	0	2
+6	1	2	1	1
+5	2	2	1	1
 5	1	2	1	2
-5	1	1	1	3
 5	1	2	1	2
-5	1	2	1	2
-5	1	2	1	2
-5	0	0	1	2
-1	0	1	0	1
-])
+5	0	1	0	2
+    ])
 
-nMinFreeLongWeekend = 2;
+nMinFreeLongWeekend = 1;
 
- doctorNameArray={
-            'Égetö'
-            'Gergely'
-            'Klimaj'
-            'Madarász'
-            'Mózer'
-            'Zabihi'
-            'Jósvai'
-            }
-       
+doctorNameArray={
+    'Égetö'
+    'Gergely'
+    'Klimaj'
+    'Madarász'
+    'Mózer'
+    'Zabihi'
+    }
+
 % doctorNameArray={
 %             'Csókay'
 %             'Jósvai'
@@ -47,14 +44,14 @@ nMinFreeLongWeekend = 2;
 %             'Trencséni'
 %             }
 
-saturdayArray = int16([3:7:31]);
-sundayArray = int16([4:7:31]);
+saturdayArray = int16([4:7:31]);
+sundayArray = int16([5:7:31]);
 
 % longWeekendCellArray = {[1:1:3]    [7:1:10]   [14:1:17]   [21:1:24]     [28:1:31]};
-longWeekendCellArray = {[2:1:5]    [9:1:12]   [16:1:19]   [23:1:26]    [30:1:31]};
-
-mondayArray = int16([5:7:31]);
-fidayArray = int16([2:7:31]);
+longWeekendCellArray = {[3:1:5]    [10:1:12]   [17:1:19]   [24:1:26]};
+    
+mondayArray = int16([6:7:31]);
+fidayArray = int16([3:7:31]);
 
 requiredShiftArrayCond = mBoundaryConstraint (:,1);
 requiredMonFriCond = mBoundaryConstraint (:,2);
@@ -85,8 +82,13 @@ fixedShiftDay = int16(fixedShiftDay);
 dayPool(find(int16(sum((mShiftConstraint==2),1)))) = [];
 
 requiredShiftArray = requiredShiftArrayCond - int16(sum((mShiftConstraint==2),2));
+
 requiredWeekendDay = requiredWeekendDayCond - int16(sum(ismember(mTmpShiftDay.*int16(mShiftConstraint==2),[saturdayArray sundayArray]),2));
+requiredWeekendDay = requiredWeekendDay.*int16(requiredWeekendDay>0);
+
 requiredMonFri = requiredMonFriCond - int16(sum(ismember(mTmpShiftDay.*int16(mShiftConstraint==2),[mondayArray fidayArray]),2));
+requiredMonFri = requiredMonFri.*int16(requiredMonFri>0);
+
 fixedTueWenThuShiftArray = int16(sum(ismember(mTmpShiftDay.*int16(mShiftConstraint==2),tueWenThuArray),2));
 
 for i=1:length(fixedShiftDoctor)
@@ -106,8 +108,6 @@ shiftStruct.dayIndex = 1;
 shiftStruct.doctorMatrix = mShiftConstraint;
 shiftStruct.requiredShiftArray = requiredShiftArray;
 
-
-
 shiftStructStack = {shiftStruct};
 leafCounter = 0;
 iSolution=int64(0);
@@ -119,44 +119,51 @@ while (~isempty(shiftStructStack))
     
     iDayPassed = nDay-nDayUnfilled+shiftStructNode1.dayIndex-1;
     
-    %% This section decreases the number of branches to be visited by regularly ckecking some of the constraints (every 2nd day)
-    passed = true;
-    if mod(iDayPassed,2)==1
-        tmpShiftIntMatrix = int16(shiftStructNode1.doctorMatrix==1);
-        freeWeekendArray = zeros(nDoctor,1);
-        for i=1:length(longWeekendCellArray)
-            weekendShiftArray = sum(ismember((mTmpShiftDay.*tmpShiftIntMatrix),longWeekendCellArray{i}),2);
-            freeWeekendArray=(weekendShiftArray==0)+freeWeekendArray;
-        end
-        if  prod(freeWeekendArray >= nMinFreeLongWeekend)==1
-            passed = true;
-        else
-            passed = false;
-            continue
-        end
-        
-        tueWenThuShiftArray = int16(sum(ismember(mTmpShiftDay.*tmpShiftIntMatrix,tueWenThuArray),2)) - fixedTueWenThuShiftArray;
-        if  prod(requiredShiftArray < requiredMonFri + requiredWeekendDay + tueWenThuShiftArray)==1 % minimum 1 shifts on monday or frnDayPassed
-            passed = false;
-            continue
-        end
-        
-        monFriShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[mondayArray fidayArray]),2);
-        if sum(monFriShiftArray > maxMonFri)>0 % checking maximum number of shifts on monday or friDayPassed checking
-            passed = false;
-            continue
-        end
-        
-        engagedWeekendDayArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[saturdayArray sundayArray]),2);
-        if sum(engagedWeekendDayArray > maxWeekendDay)>0; % checking maximum number of shifts on weekends
-            passed = false;
-            continue
-        end
-        
+    %% This section decreases the number of branches to be visited by regularly ckecking some of the constraints
+    passednMinFreeLongWeekend = true;
+    passedEnoughRequiredShiftDay = true;
+    passedEnoughRequiredMonFriShiftDay = true;
+    passedEngagedWeekendDay = true;
+    passedrequiredShiftArrayCond = true;
+    
+    tmpShiftIntMatrix = int16(shiftStructNode1.doctorMatrix==1);
+    freeWeekendArray = zeros(nDoctor,1);
+    for i=1:length(longWeekendCellArray)
+        weekendShiftArray = sum(ismember((mTmpShiftDay.*tmpShiftIntMatrix),longWeekendCellArray{i}),2);
+        freeWeekendArray=(weekendShiftArray==0)+freeWeekendArray;
+    end
+    if  prod(freeWeekendArray >= nMinFreeLongWeekend)==1
+        passednMinFreeLongWeekend = true;
+    else
+        passednMinFreeLongWeekend = false;
+        continue
     end
     
-    %% pushing nodes into the stack if the previous conditions are fullfilled
+    tueWenThuShiftArray = int16(sum(ismember(mTmpShiftDay.*tmpShiftIntMatrix,tueWenThuArray),2)) - fixedTueWenThuShiftArray;
+    if  prod(requiredShiftArray < requiredMonFri + requiredWeekendDay + tueWenThuShiftArray)==1 % minimum 1 shifts on monday or frnDayPassed
+        passedEnoughRequiredShiftDay = false;
+        continue
+    end
     
+    monFriShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[mondayArray fidayArray]),2);
+    if sum(monFriShiftArray > maxMonFri)>0 % checking maximum number of shifts on monday or friDayPassed checking
+        passedEnoughRequiredMonFriShiftDay = false;
+        continue
+    end
+    
+    engagedWeekendDayArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[saturdayArray sundayArray]),2);
+    if sum(engagedWeekendDayArray > maxWeekendDay)>0; % checking maximum number of shifts on weekends
+        passedEngagedWeekendDay = false;
+        continue
+    end
+    
+    if sum(requiredShiftArrayCond<sum(shiftStructNode1.doctorMatrix,2))
+        passedrequiredShiftArrayCond = false;
+        continue
+    end
+        
+    %% pushing nodes into the stack if the previous conditions are fullfilled
+    passed = all([passednMinFreeLongWeekend passedEnoughRequiredShiftDay passedEnoughRequiredMonFriShiftDay passedEngagedWeekendDay passedrequiredShiftArrayCond]);
     if passed==true & nDay > iDayPassed
         
         actualDay = idxPool(shiftStructNode1.dayIndex);
@@ -164,8 +171,8 @@ while (~isempty(shiftStructStack))
         [out,idx] = sort(shiftStructNode1.requiredShiftArray,'descend');
         nonZeroArray = idx(out>0);
         
-%         nonZeroArray = find(shiftStructNode1.requiredShiftArray);
-                %     nonZeroArray = nonZeroArray(randperm(length(nonZeroArray))); % randomly sort elements of nonZeroArray in order to enhance random distribution of solutions over script runs
+        %         nonZeroArray = find(shiftStructNode1.requiredShiftArray);
+        %     nonZeroArray = nonZeroArray(randperm(length(nonZeroArray))); % randomly sort elements of nonZeroArray in order to enhance random distribution of solutions over script runs
         
         for i=1:length(nonZeroArray)
             
@@ -206,13 +213,13 @@ while (~isempty(shiftStructStack))
     %% checking constraints at the end of the tree
     if iDayPassed == nDay
         leafCounter = leafCounter + 1;
-        passed = false;
+        passed2 = false;
         
         monFriShiftArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[mondayArray fidayArray]),2);
         if prod(monFriShiftArray >= requiredMonFriCond)==1 % minimum shifts on monday or friDayPassed
-            passed = true;
+            passed2 = true;
         else
-            passed = false;
+            passed2 = false;
             continue
         end
         
@@ -222,25 +229,27 @@ while (~isempty(shiftStructStack))
             freeWeekendArray=(weekendShiftArray==0)+freeWeekendArray;
         end
         if  prod(freeWeekendArray >= nMinFreeLongWeekend)==1
-            passed = true;
+            passed2 = true;
         else
-            passed = false;
+            passed2 = false;
             continue
         end
         
         engagedWeekendDayArray = sum(ismember(mTmpShiftDay.*shiftStructNode1.doctorMatrix,[saturdayArray sundayArray]),2);
         if prod(engagedWeekendDayArray >= requiredWeekendDayCond)==1;
-            passed=true;
+            passed2=true;
         else
-            passed=false;
+            passed2=false;
             continue
         end
         
+%         if iSolution==1
+%             break
+%         end
         
-        
-        if passed==true
+        if passed2==true
             iSolution=iSolution+1
-            fprintf(fid,'%d\n',iSolution);
+            fprintf(fid,'Megoldás sorszáma: %d\n',iSolution);
             for ii = 1:size(shiftStructNode1.doctorMatrix,1)
                 fprintf(fid,'%u\t',shiftStructNode1.doctorMatrix(ii,:));
                 fprintf(fid,'\n');
