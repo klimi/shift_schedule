@@ -7,26 +7,27 @@
 % 
 mConstraints = int16([...
 %1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31      ügyeleti napok	hétf?-péntek (MIN)	hétf?-péntek (MAX)	hétvégi napok (MIN)	hétvégi napok (MAX)
-0	0	0	-1	0	0	0	0	0	0	-1	0	0	0	0	0	0	-1	0	0	0	0	0	0	-1	0	0	0	0	0	0		3	0	1	0	0
-0	-1	-1	-1	-1	-1	-1	0	0	-1	0	-1	0	0	0	0	-1	0	2	0	2	0	-1	-1	0	-1	-1	-1	0	0	-1		6	1	2	1	2
-2	0	0	0	0	-1	-1	0	2	0	0	0	0	0	0	2	0	0	0	2	0	0	2	0	0	-1	-1	-1	-1	-1	-1		5	0	2	0	2
--1	-1	-1	0	-1	0	0	0	0	0	0	0	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	2	0	0	0		5	1	2	1	2
-0	0	0	-1	0	2	0	0	0	0	0	-1	-1	-1	-1	0	0	0	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0		6	1	2	1	2
-0	-1	-1	2	0	-1	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0		6	1	2	1	2
-]);
-
+-1	-1	-1	0	2	0	-1	2	0	0	2	0	2	0	-1	-1	-1	-1	-1	-1	-1	0	0	0	-1	-1	-1	0	2	0	-1	6	1	3	1	3
+0	0	0	0	0	0	0	-1	0	0	0	0	0	0	-1	0	0	0	0	0	0	-1	0	-1	-1	-1	0	0	-1	0	0	5	1	3	1	3
+2	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	5	1	3	1	3
+-1	-1	-1	-1	-1	0	0	-1	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	0	0	0	5	1	3	1	3
+-1	0	0	-1	0	0	0	0	0	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	-1	0	0	0	0	2	5	1	3	0	3
+-1	2	0	-1	-1	-1	-1	-1	0	-1	-1	-1	-1	0	0	0	0	0	0	0	0	0	0	-1	0	0	-1	-1	-1	0	-1	5	1	3	0	3
+]); 
+    
 nMinFreeLongWeekend = 2;
+firstMonday = 6; % date of the first monday in given month
 
 % doctorNameArray={
 %     'Égetö'
 %     'Gergely'
 %     'Klimaj'
 %     'Madarász'
-%     'Zabihi'
+%     'Tóth'
 %     }
 
 doctorNameArray={
-    'Csókay'
+    'Szloboda'
     'Jósvai'
     'Lipóth'
     'Mózer'
@@ -34,15 +35,56 @@ doctorNameArray={
     'Mózes'
     }
 
-saturdayArray = int16([6:7:31]);
-sundayArray = int16([7:7:31]);
 
-longWeekendCellArray = {[5:1:7]    [12:1:14]   [19:1:21]   [26:1:28]};
-    
-mondayArray = int16([1:7:31]);
-fridayArray = int16([5:7:31]);
-
+fid = fopen( 'shiftSolution_2.txt', 'wt' );
+%% 
 mShiftConstraint = mConstraints(:,1:end-5);
+mShiftConstraint= int16(mShiftConstraint);
+[nDoctor nDay] = size(mShiftConstraint);
+
+switch firstMonday
+    case 1
+        saturdayArray = int16([firstMonday+5:7:nDay]);
+        sundayArray = int16([firstMonday+6:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday+4:7:nDay]);
+    case 2
+        saturdayArray = int16([firstMonday+5:7:nDay]);
+        sundayArray = int16([firstMonday-1:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday+4:7:nDay]);
+    case 3
+        saturdayArray = int16([firstMonday-2:7:nDay]);
+        sundayArray = int16([firstMonday-1:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday+4:7:nDay]);
+    case 4
+        saturdayArray = int16([firstMonday-2:7:nDay]);
+        sundayArray = int16([firstMonday-1:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday-3:7:nDay]);
+    case 5
+        saturdayArray = int16([firstMonday-2:7:nDay]);
+        sundayArray = int16([firstMonday-1:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday-3:7:nDay]);
+    case 6
+        saturdayArray = int16([firstMonday-2:7:nDay]);
+        sundayArray = int16([firstMonday-1:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday-3:7:nDay]);
+    case 7
+        saturdayArray = int16([firstMonday-2:7:nDay]);
+        sundayArray = int16([firstMonday-1:7:nDay]);
+        mondayArray = int16([firstMonday:7:nDay]);
+        fridayArray = int16([firstMonday-3:7:nDay]);
+end
+
+longWeekendCellArray = {[fridayArray(1):1:fridayArray(1)+2]};
+for i = 1:floor(nDay/7)-1
+    longWeekendCellArray = {longWeekendCellArray{:} [fridayArray(1)+i*7:1:fridayArray(1)+2+i*7]};
+end
+    
 mBoundaryConstraint = mConstraints(:,end-4:end);
 requiredShiftArrayCond = mBoundaryConstraint (:,1);
 requiredMonFriCond = mBoundaryConstraint (:,2);
@@ -72,10 +114,13 @@ if aBoundaryConstraint(3) < numel(mondayArray)+numel(fridayArray)
     disp('nincs elég hétfö-péntek');
     return
 end
-%% stack, txt file initialization
-mShiftConstraint= int16(mShiftConstraint);
 
-[nDoctor nDay] = size(mShiftConstraint);
+if sum(requiredShiftArrayCond) ~= nDay
+    disp('nem egyezik az ügyeleti napok száma és a hónap napjainak a száma');
+    return
+end
+%% stack, txt file initialization
+
 
 [mTmpShiftDay,mTmpShiftDoctor] = meshgrid(1:nDay,1:nDoctor);
 mTmpShiftDay = int16(mTmpShiftDay);
@@ -83,7 +128,6 @@ mTmpShiftDoctor = int16(mTmpShiftDoctor);
 
 dayPool = int16(1:nDay);
 
-fid = fopen( 'shiftSolution_2.txt', 'wt' );
 fprintf(fid,'Ügyeleti beosztás opciók: \n\n');
 
 tueWenThuArray = find(~ismember(1:nDay,[saturdayArray sundayArray mondayArray fridayArray]));
@@ -190,7 +234,7 @@ while (~isempty(shiftStructStack))
         
     %% pushing nodes into the stack if the previous conditions are fullfilled
     passed = all([passednMinFreeLongWeekend passedEnoughRequiredShiftDay passedEnoughRequiredMonFriShiftDay passedEngagedWeekendDay passedrequiredShiftArrayCond]);
-    if passed==true & nDay > iDayPassed
+    if passed==true && nDay > iDayPassed
         
         actualDay = idxPool(shiftStructNode1.dayIndex);
         
@@ -209,9 +253,9 @@ while (~isempty(shiftStructStack))
                     continue
                     
                 case 0    % aka the doctor is available on the given day
-                    if actualDay > 1 & actualDay < nDay
+                    if actualDay > 1 && actualDay < nDay
                         
-                        if (shiftStructNode1.doctorMatrix(nonZeroArray(i),actualDay-1) ~= 1) & (shiftStructNode1.doctorMatrix(nonZeroArray(i),actualDay+1) ~= 1)
+                        if (shiftStructNode1.doctorMatrix(nonZeroArray(i),actualDay-1) ~= 1) && (shiftStructNode1.doctorMatrix(nonZeroArray(i),actualDay+1) ~= 1)
                             
                             shiftStructStack = stepNode(shiftStructStack,shiftStructNode1,actualDay,nonZeroArray(i));
                         else
@@ -295,17 +339,25 @@ while (~isempty(shiftStructStack))
             continue
         end
     end
-    if iSolution == 1000000
+    if iSolution == 1000
         break
     end
 end
-if iSolution==0
-    disp('lehetséges problémás nap:');
-    disp(actualDay);
+if passednMinFreeLongWeekend == false && iSolution==0
+    disp('nincs mindenkinek elég szabad hétvégéje');
+elseif passedEnoughRequiredMonFriShiftDay == false && iSolution==0
+    disp('hétfö péntek vagy hétvégi ügyeleti számok problémások ');
+elseif passedEnoughRequiredShiftDay == false && iSolution==0
+    disp('nincs elég ügyeleti nap');
+elseif passedEngagedWeekendDay == false && iSolution==0
+    disp('hétvégi ügyeleti napok problémások');
 else
-    disp('NINCS TÖBB MEGOLDÁS');
+    if iSolution==0
+        disp('lehetséges problémás nap:');
+        disp(actualDay);
+    else
+        disp('megoldás keresés vége');
+    end
 end
-
 fclose(fid);
 % end
-
